@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {call, put} from "redux-saga/effects";
+import {call, put, delay} from "redux-saga/effects";
 import {apiPosts} from "../Api/apiPosts";
 
 type PostType = {
@@ -25,6 +25,7 @@ type GetPostsType = {
 
 export function* getPostsTakeEvery(action: ActionType) {
     try {
+        yield delay(5000)
         const {data} = yield call(apiPosts.getPosts)
         yield put(setPosts({posts: data}))
     } catch (err) {

@@ -25,7 +25,6 @@ type GetPostsType = {
 
 export function* getPostsTakeEvery(action: ActionType) {
     try {
-        yield delay(5000)
         const {data} = yield call(apiPosts.getPosts)
         yield put(setPosts({posts: data}))
     } catch (err) {

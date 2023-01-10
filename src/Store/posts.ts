@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {call, put, delay, fork} from "redux-saga/effects";
+import {call, put, delay, fork, actionChannel, take} from "redux-saga/effects";
 import {apiPosts} from "../Api/apiPosts";
 
 type PostType = {

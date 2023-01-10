@@ -2,6 +2,27 @@ import React from 'react';
 import './App.css';
 import {useAppDispatch} from "./Store/reduxUtils";
 import {ButtonThrottle} from "./Components/ButtonThrottle";
+import {ButtonFork} from "./Components/ButtonFork";
+import axios from "axios";
+
+const obj = {
+    isPosts: false,
+    posts: []
+}
+
+const getPostsq = async () => {
+    if (!obj.isPosts) {
+        obj.isPosts = true
+    } else {
+        return
+    }
+    axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
+        // @ts-ignore
+        obj.posts = res
+        obj.isPosts = false
+    })
+}
+
 
 function App() {
     const dispatch = useAppDispatch()
@@ -17,27 +38,12 @@ function App() {
             <div>
                 <button onClick={() => getPosts()}>GetPosts</button>
                 <ButtonThrottle func={getPosts}/>
+                <ButtonFork func={getPosts}/>
+                <button onClick={() => getPostsq()}>test</button>
             </div>
         </div>
     );
 }
 
 export default App;
-const res = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(3)
-        }, 5000)
-    })
-}
 
-function* get() {
-    yield  1
-    yield res().then(res => res)
-    yield 2
-}
-
-const generator = get()
-console.log(generator.next())
-console.log(generator.next())
-console.log(generator.next())

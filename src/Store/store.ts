@@ -2,8 +2,12 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga'
 import {takeEvery, takeLatest, race, throttle} from 'redux-saga/effects'
 import {getPostsTakeEvery, postsReducer} from "./posts";
+import {userReducer} from "./user";
 
-const rootReducer = combineReducers({postsReducer})
+
+
+// @ts-ignore
+const rootReducer = combineReducers({postsReducer,userReducer})
 const sagaMiddle = createSagaMiddleware()
 
 export const store = configureStore({

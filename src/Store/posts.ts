@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {call, put, delay, fork, actionChannel, take, all, race} from "redux-saga/effects";
+import {call, put, delay, fork, actionChannel, take, all, race, select} from "redux-saga/effects";
 import {apiPosts} from "../Api/apiPosts";
+import {AppRootState} from "./reduxUtils";
 
 type PostType = {
     body: string
@@ -14,7 +15,7 @@ type InitialStateType = {
 const initialState: InitialStateType = {
     posts: []
 }
-export const actionGetUser = () => ({type: "ACTION-GET-POSTS", load: true})
+export const actionGetUser = ():ActionType => ({type: "ACTION-GET-POSTS", load: true})
 type ActionType = {
     type: 'ACTION-GET-POSTS',
     load: boolean
@@ -34,15 +35,25 @@ function* twoTask() {
     console.log('how are you?')
 }
 
-export function* getPostsTakeEvery(action: ActionType) {
+const f = (state: any) => state.postsReducer
+type ActionTypes = ReturnType<typeof actionGetUser>
+export function* getPostsTakeEvery(action: ActionTypes) {
     try {
         const {data} = yield call(apiPosts.getPosts)
+        // @ts-ignore
+        const a = yield select(f)
+        console.log(a)
+        // @ts-ignore
+        // const action = yield call(apiPosts.getPosts)
+        // // @ts-ignore
+        // const state = yield select()
+        // console.log('action', action)
+        // console.log('state after', state)
         // const {data} = yield fork(apiPosts.getPosts)
         // const {data} = yield fork(oneTask)
         // yield fork(twoTask)
         // const {data} = yield race([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
         // const {data} = yield all([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
-        console.log(data)
         yield put(setPosts({posts: data}))
     } catch (err) {
         console.log(err)

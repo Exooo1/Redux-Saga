@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga'
-import {takeEvery, race, throttle} from 'redux-saga/effects'
+import {takeEvery, takeLatest, race, throttle} from 'redux-saga/effects'
 import {getPostsTakeEvery, postsReducer} from "./posts";
 
 const rootReducer = combineReducers({postsReducer})
@@ -13,7 +13,8 @@ export const store = configureStore({
 
 function* postsWatcher() {
     yield  throttle(2000, 'ACTION-GET-POSTS-THROTTLE', getPostsTakeEvery)
-    yield  takeEvery('ACTION-GET-POSTS-SIMPLE', getPostsTakeEvery)
+    // yield  takeEvery('ACTION-GET-POSTS-SIMPLE', getPostsTakeEvery)
+    yield  takeLatest('ACTION-GET-POSTS-SIMPLE', getPostsTakeEvery)
 }
 
 function* commonWatcher() {

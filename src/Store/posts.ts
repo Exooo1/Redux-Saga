@@ -36,12 +36,12 @@ function* twoTask() {
 
 export function* getPostsTakeEvery(action: ActionType) {
     try {
-        // const {data} = yield call(apiPosts.getPosts)
+        const {data} = yield call(apiPosts.getPosts)
         // const {data} = yield fork(apiPosts.getPosts)
         // const {data} = yield fork(oneTask)
         // yield fork(twoTask)
         // const {data} = yield race([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
-        const {data} = yield all([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
+        // const {data} = yield all([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
         console.log(data)
         yield put(setPosts({posts: data}))
     } catch (err) {

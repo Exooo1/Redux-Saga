@@ -11,16 +11,22 @@ const obj = {
 }
 
 const getPostsq = async () => {
-    if (!obj.isPosts) {
-        obj.isPosts = true
-    } else {
-        return
-    }
-    axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
-        // @ts-ignore
-        obj.posts = res
-        obj.isPosts = false
-    })
+    // if (!obj.isPosts) {
+    //     obj.isPosts = true
+    // } else {
+    //     return
+    // }
+    // axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
+    //     // @ts-ignore
+    //     obj.posts = res
+    //     obj.isPosts = false
+    // })
+
+    // @ts-ignore
+
+    const one = axios.get('https://jsonplaceholder.typicode.com/posts')
+    const two = axios.get('https://jsonplaceholder.typicode.com/photos')
+    Promise.all([one, two]).then(res => console.log(res))
 }
 
 

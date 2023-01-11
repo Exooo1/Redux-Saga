@@ -7,5 +7,8 @@ const instance = axios.create({
 export const apiPosts = {
     getPosts() {
         return instance.get('posts')
+    },
+    getPhotos(){
+        return instance.get('photos')
     }
 }

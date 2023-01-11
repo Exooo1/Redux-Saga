@@ -6,6 +6,6 @@ type ButtonThrottleType = {
 
 export const ButtonFork: React.FC<ButtonThrottleType> = ({func}) => {
     return <div>
-        <button onClick={() => func('ACTION-GET-POSTS-THROTTLE')}>ButtonFork</button>
+        <button onClick={() => func('ACTION-GET-POSTS-SIMPLE')}>ButtonFork</button>
     </div>
 }

@@ -26,7 +26,7 @@ const getPostsq = async () => {
 
     const one = axios.get('https://jsonplaceholder.typicode.com/posts')
     const two = axios.get('https://jsonplaceholder.typicode.com/photos')
-    Promise.all([one, two]).then(res => console.log(res))
+    const d = await Promise.all([one, two])
 }
 
 

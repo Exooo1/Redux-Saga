@@ -15,7 +15,6 @@ type InitialStateType = {
 const initialState: InitialStateType = {
     posts: []
 }
-export const actionGetUser = (): ActionType => ({type: "ACTION-GET-POSTS", load: true})
 type ActionType = {
     type: 'ACTION-GET-POSTS',
     load: boolean
@@ -36,6 +35,7 @@ function* twoTask() {
 }
 
 const f = (state: any) => state.postsReducer
+export const actionGetUser = (): ActionType => ({type: "ACTION-GET-POSTS", load: true})
 type ActionTypes = ReturnType<typeof actionGetUser>
 
 function* test() {
@@ -46,10 +46,11 @@ function* test() {
 
 export function* getPostsTakeEvery(action: ActionTypes) {
     try {
-        // const {data} = yield call(apiPosts.getPosts)
+        yield delay(2000)
+        const {data} = yield call(apiPosts.getPosts)
         // @ts-ignore
-        const data = yield fork(test)
-        yield cancel(data)
+        // const data = yield fork(test)
+        // yield cancel(data)
         // @ts-ignore
         // const a = yield select(f)
         // console.log(a)

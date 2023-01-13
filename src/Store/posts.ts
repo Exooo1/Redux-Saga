@@ -46,8 +46,10 @@ function* test() {
 
 export function* getPostsTakeEvery(action: ActionTypes) {
     try {
-        yield delay(2000)
         const {data} = yield call(apiPosts.getPosts)
+        // @ts-ignore
+        const store = yield select((postsReducer) => postsReducer)
+        console.log(store)
         // @ts-ignore
         // const data = yield fork(test)
         // yield cancel(data)

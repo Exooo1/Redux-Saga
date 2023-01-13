@@ -4,6 +4,7 @@ import {useAppDispatch} from "./Store/reduxUtils";
 import {ButtonThrottle} from "./Components/ButtonThrottle";
 import {ButtonFork} from "./Components/ButtonFork";
 import axios from "axios";
+import {useDispatch} from "react-redux";
 
 const obj = {
     isPosts: false,
@@ -32,6 +33,7 @@ const getPostsq = async () => {
 
 function App() {
     const dispatch = useAppDispatch()
+    // const disp = useDispatch()
     const getPosts = (type?: string) => {
         console.log(type)
         dispatch({type: type || 'ACTION-GET-POSTS-SIMPLE'})

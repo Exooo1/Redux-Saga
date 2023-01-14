@@ -44,9 +44,9 @@ function* test() {
     return data
 }
 
-export function* getPostsTakeEvery(action: ActionTypes) {
+export function* getPostsTakeEvery() {
     try {
-        const {data} = yield call(apiPosts.getPosts)
+        const {data} = yield apiPosts.getPosts()
         // @ts-ignore
         const store = yield select((postsReducer) => postsReducer)
         console.log(store)
@@ -72,7 +72,11 @@ export function* getPostsTakeEvery(action: ActionTypes) {
     } catch (err) {
         console.log(err)
     }
+}
 
+export function* testGen() {
+    yield  1
+   return
 }
 
 const slice = createSlice({

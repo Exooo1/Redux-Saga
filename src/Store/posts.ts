@@ -48,11 +48,10 @@ export function* getPostsTakeEvery() {
     try {
         const {data} = yield call(apiPosts.getPosts)
         // @ts-ignore
-        const {data: dd} = yield call(apiPosts.getPhotos)
-        console.log(dd)
+        // const datas = yield call(apiPosts.getPhotos)
         // @ts-ignore
-        const store = yield select((postsReducer) => postsReducer)
-        console.log(store)
+        // const store = yield select((postsReducer) => postsReducer)
+        // console.log(store)
         // @ts-ignore
         // const data = yield fork(test)
         // yield cancel(data)

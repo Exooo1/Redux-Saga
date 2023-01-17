@@ -46,7 +46,7 @@ function* test() {
 
 export function* getPostsTakeEvery() {
     try {
-        const {data} = yield apiPosts.getPosts()
+        const {data} = yield call(apiPosts.getPosts)
         // @ts-ignore
         const store = yield select((postsReducer) => postsReducer)
         console.log(store)
@@ -76,7 +76,7 @@ export function* getPostsTakeEvery() {
 
 export function* testGen() {
     yield  1
-   return
+    return
 }
 
 const slice = createSlice({

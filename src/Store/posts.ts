@@ -1,7 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {call, put, delay, fork, actionChannel, take, all, race, select, cancel} from "redux-saga/effects";
+import {call, put, delay, fork, actionChannel, take, all, race, select, cancel, spawn} from "redux-saga/effects";
 import {apiPosts} from "../Api/apiPosts";
-import {AppRootState} from "./reduxUtils";
 
 type PostType = {
     body: string
@@ -46,12 +45,14 @@ function* test() {
 
 export function* getPostsTakeEvery() {
     try {
-        const {data} = yield call(apiPosts.getPosts)
+        // const {data} = yield call(apiPosts.getPosts)
+        // console.log(data)
         // @ts-ignore
-        // const datas = yield call(apiPosts.getPhotos)
+        // const data = yield spawn(apiPosts.getPosts)
+        const data = yield fork(apiPosts.getPosts)
         // @ts-ignore
         // const store = yield select((postsReducer) => postsReducer)
-        // console.log(store)
+        console.log(data)
         // @ts-ignore
         // const data = yield fork(test)
         // yield cancel(data)

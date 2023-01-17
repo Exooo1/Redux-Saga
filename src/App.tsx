@@ -35,7 +35,6 @@ function App() {
     const dispatch = useAppDispatch()
     // const disp = useDispatch()
     const getPosts = (type?: string) => {
-        console.log(type)
         dispatch({type: type || 'ACTION-GET-POSTS-SIMPLE'})
     }
     return (

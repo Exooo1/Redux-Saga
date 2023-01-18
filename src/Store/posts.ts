@@ -60,8 +60,7 @@ export function* getPostsTakeEvery() {
         // const data = yield fork(test)
         // yield cancel(data)
         // @ts-ignore
-        // const a = yield select(f)
-        // console.log(a)
+        const a = yield select(state => console.log(state))
 
         // @ts-ignore
         // const action = yield call(apiPosts.getPosts)
@@ -98,3 +97,14 @@ const slice = createSlice({
 
 export const postsReducer = slice.reducer
 export const {setPosts} = slice.actions
+
+
+// const func = () => {
+//     const data = new Date().getTime()
+//     let time = data
+//     while (time < data + 3000) {
+//         time = new Date().getTime()
+//     }
+//     console.log('end')
+// }
+// func()

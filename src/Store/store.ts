@@ -17,7 +17,7 @@ export const store = configureStore({
 function* postsWatcher() {
     yield  throttle(2000, 'ACTION-GET-POSTS-THROTTLE', getPostsTakeEvery)
     // yield  takeEvery('ACTION-GET-POSTS-SIMPLE', getPostsTakeEvery)
-    yield  takeLatest('ACTION-GET-POSTS-SIMPLE', allWorkers)
+    yield  takeLatest('ACTION-GET-POSTS-SIMPLE', getPostsTakeEvery)
     // yield  takeLatest('INCREMENT', testGen)
     // yield  take('ACTION-GET-POSTS-SIMPLE')
 

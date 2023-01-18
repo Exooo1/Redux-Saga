@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {useAppDispatch} from "./Store/reduxUtils";
 import {ButtonThrottle} from "./Components/ButtonThrottle";
@@ -37,11 +37,21 @@ function App() {
     const getPosts = (type?: string) => {
         dispatch({type: type || 'ACTION-GET-POSTS-SIMPLE'})
     }
+    const [name, setName] = useState<string>('')
+    const [time, setTime] = useState<any>(0)
+    const changeName = (e: any) => {
+        setName(e.target.value)
+        if (time) clearTimeout(time)
+        setTime(setTimeout(() => {
+            dispatch({type: 'ACTION-GET-POSTS-SIMPLE'})
+        }, 1000))
+    }
     return (
         <div className="App">
             <h1>
                 Hello this is Redux-Saga!
             </h1>
+            <input value={name} onChange={changeName} type="text"/>
             <div>
                 <button onClick={() => getPosts()}>GetPosts</button>
                 <ButtonThrottle func={getPosts}/>

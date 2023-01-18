@@ -47,7 +47,9 @@ export function* secondWorker() {
 }
 
 export function* getPostsTakeEvery() {
+    console.log('Hello')
     try {
+        throw  new Error('Sorry, that isn\'t right')
         // const {data} = yield call(apiPosts.getPosts)
         // console.log(data)
         // @ts-ignore
@@ -59,9 +61,6 @@ export function* getPostsTakeEvery() {
         // @ts-ignore
         // const data = yield fork(test)
         // yield cancel(data)
-        // @ts-ignore
-        const a = yield select(state => console.log(state))
-
         // @ts-ignore
         // const action = yield call(apiPosts.getPosts)
         // // @ts-ignore

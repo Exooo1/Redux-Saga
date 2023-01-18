@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {call, put, delay, fork, actionChannel, take, all, race, select, cancel, spawn} from "redux-saga/effects";
+import {call, put, delay, fork, join, actionChannel, take, all, race, select, cancel, spawn} from "redux-saga/effects";
 import {apiPosts} from "../Api/apiPosts";
 
 type PostType = {
@@ -46,20 +46,22 @@ export function* secondWorker() {
     }
 }
 
+// @ts-ignore
 export function* getPostsTakeEvery() {
-    console.log('Hello')
     try {
-        throw  new Error('Sorry, that isn\'t right')
         // const {data} = yield call(apiPosts.getPosts)
+        // @ts-ignore
+        // const data = yield fork(apiPosts.getPosts)
+        // @ts-ignore
+        // const result = yield join(data)
+        // console.log(result)
         // console.log(data)
         // @ts-ignore
         // const data = yield spawn(apiPosts.getPosts)
-        const {data} = yield call(apiPosts.getPosts)
+        // const {data} = yield call(apiPosts.getPosts)
         // @ts-ignore
         // const store = yield select((postsReducer) => postsReducer)
-        console.log(data)
         // @ts-ignore
-        // const data = yield fork(test)
         // yield cancel(data)
         // @ts-ignore
         // const action = yield call(apiPosts.getPosts)
@@ -72,7 +74,8 @@ export function* getPostsTakeEvery() {
         // yield fork(twoTask)
         // const {data} = yield race([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
         // const {data} = yield all([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
-        yield put(setPosts({posts: data}))
+        // yield put(setPosts({posts: data}))
+        return
     } catch (err) {
         console.log(err)
     }

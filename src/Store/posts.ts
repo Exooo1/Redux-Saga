@@ -94,3 +94,6 @@ const slice = createSlice({
 
 export const postsReducer = slice.reducer
 export const {setPosts} = slice.actions
+const b=(a:any,...b:any)=>{
+
+}

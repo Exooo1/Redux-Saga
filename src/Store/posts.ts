@@ -37,10 +37,13 @@ const f = (state: any) => state.postsReducer
 export const actionGetUser = (): ActionType => ({type: "ACTION-GET-POSTS", load: true})
 type ActionTypes = ReturnType<typeof actionGetUser>
 
-function* test() {
-    yield delay(2000)
-    const {data} = yield call(apiPosts.getPosts)
-    return data
+export function* secondWorker() {
+    try {
+        const {data} = yield call(apiPosts.getPhotos)
+        console.log(data)
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 export function* getPostsTakeEvery() {
@@ -49,7 +52,7 @@ export function* getPostsTakeEvery() {
         // console.log(data)
         // @ts-ignore
         // const data = yield spawn(apiPosts.getPosts)
-        const data = yield fork(apiPosts.getPosts)
+        const {data} = yield call(apiPosts.getPosts)
         // @ts-ignore
         // const store = yield select((postsReducer) => postsReducer)
         console.log(data)
@@ -77,9 +80,10 @@ export function* getPostsTakeEvery() {
     }
 }
 
-export function* testGen() {
-    yield  1
-    return
+export function* allWorkers() {
+    // yield fork(secondWorker)
+    // yield fork(getPostsTakeEvery)
+    yield all([fork(secondWorker), fork(getPostsTakeEvery)])
 }
 
 const slice = createSlice({
@@ -94,6 +98,3 @@ const slice = createSlice({
 
 export const postsReducer = slice.reducer
 export const {setPosts} = slice.actions
-const b=(a:any,...b:any)=>{
-
-}

@@ -1,4 +1,4 @@
-import {getPostsTakeEvery, setPosts, testGen} from "../Store/posts";
+import {getPostsTakeEvery, setPosts} from "../Store/posts";
 import {apiPosts} from "../Api/apiPosts";
 import {call, put} from "redux-saga/effects";
 

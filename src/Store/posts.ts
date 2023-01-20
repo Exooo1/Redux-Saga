@@ -1,5 +1,20 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {call, put, delay, fork, join, actionChannel, take, all, race, select, cancel, spawn} from "redux-saga/effects";
+import {
+    call,
+    put,
+    delay,
+    fork,
+    join,
+    actionChannel,
+    takeMaybe,
+    take,
+    all,
+    race,
+    select,
+    cancel,
+    spawn,
+    cps
+} from "redux-saga/effects";
 import {apiPosts} from "../Api/apiPosts";
 
 type PostType = {
@@ -46,10 +61,26 @@ export function* secondWorker() {
     }
 }
 
-// @ts-ignore
+// const doSomething = (param1: any, param2: any, callback: any) => {
+//     console.log(param1, param2)
+//     setTimeout(() => {
+//         callback(param1 + param2)
+//     }, 1000)
+// }
+const getPostsAPI = async (callback: any) => {
+    const {data} = await apiPosts.getPosts()
+    callback(data)
+}
+
 export function* getPostsTakeEvery() {
     try {
         // const {data} = yield call(apiPosts.getPosts)
+        // @ts-ignore
+        // const result = yield cps(getPostsAPI,'foor','bar')
+        const result = yield cps(getPostsAPI)
+        console.log(result)
+        // const take = yield takeMaybe('ACTION-GET-POSTS-SIMPLE')
+        // console.log(take)
         // @ts-ignore
         // const data = yield fork(apiPosts.getPosts)
         // @ts-ignore
@@ -75,17 +106,16 @@ export function* getPostsTakeEvery() {
         // const {data} = yield race([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
         // const {data} = yield all([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
         // yield put(setPosts({posts: data}))
-        return
     } catch (err) {
         console.log(err)
     }
 }
 
-export function* allWorkers() {
-    // yield fork(secondWorker)
-    // yield fork(getPostsTakeEvery)
-    yield all([fork(secondWorker), fork(getPostsTakeEvery)])
-}
+// export function* allWorkers() {
+//     // yield fork(secondWorker)
+//     // yield fork(getPostsTakeEvery)
+//     yield all([fork(secondWorker), fork(getPostsTakeEvery)])
+// }
 
 const slice = createSlice({
     name: 'posts',
@@ -99,14 +129,3 @@ const slice = createSlice({
 
 export const postsReducer = slice.reducer
 export const {setPosts} = slice.actions
-
-
-// const func = () => {
-//     const data = new Date().getTime()
-//     let time = data
-//     while (time < data + 3000) {
-//         time = new Date().getTime()
-//     }
-//     console.log('end')
-// }
-// func()

@@ -3,6 +3,7 @@ import {
     call,
     put,
     delay,
+    flush,
     fork,
     join,
     actionChannel,
@@ -72,15 +73,16 @@ const getPostsAPI = async (callback: any) => {
     callback(data)
 }
 
+
 export function* getPostsTakeEvery() {
     try {
-        // const {data} = yield call(apiPosts.getPosts)
+        const {data} = yield call(apiPosts.getPosts)
         // @ts-ignore
         // const result = yield cps(getPostsAPI,'foor','bar')
-        const result = yield cps(getPostsAPI)
-        console.log(result)
-        // const take = yield takeMaybe('ACTION-GET-POSTS-SIMPLE')
-        // console.log(take)
+        // const result = yield cps(getPostsAPI)
+        // console.log(result)
+        const take = yield takeMaybe()
+        console.log(take)
         // @ts-ignore
         // const data = yield fork(apiPosts.getPosts)
         // @ts-ignore
@@ -91,7 +93,11 @@ export function* getPostsTakeEvery() {
         // const data = yield spawn(apiPosts.getPosts)
         // const {data} = yield call(apiPosts.getPosts)
         // @ts-ignore
-        // const store = yield select((postsReducer) => postsReducer)
+        const store = yield select((postsReducer) => postsReducer)
+        console.log(store)
+        // @ts-ignore
+        const ac = yield flush(take.type)
+        console.log(ac)
         // @ts-ignore
         // yield cancel(data)
         // @ts-ignore
@@ -105,7 +111,7 @@ export function* getPostsTakeEvery() {
         // yield fork(twoTask)
         // const {data} = yield race([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
         // const {data} = yield all([call(apiPosts.getPosts), call(apiPosts.getPhotos)])
-        // yield put(setPosts({posts: data}))
+        yield put(setPosts({posts: data}))
     } catch (err) {
         console.log(err)
     }
